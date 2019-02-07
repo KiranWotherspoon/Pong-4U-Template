@@ -43,6 +43,7 @@ namespace Pong
         Boolean ballMoveRight = true;
         Boolean ballMoveDown = true;
         const int BALL_SPEED = 4;
+        int addSpeed = 0;
         Rectangle ball;
 
         //paddle speeds and rectangles
@@ -160,6 +161,9 @@ namespace Pong
 
             if (rng.Next(1, 3) == 1) { ballMoveDown = true; }
             else { ballMoveDown = false; }
+
+            //reset ball speed
+            addSpeed = 0;
         }
 
         /// <summary>
@@ -171,12 +175,34 @@ namespace Pong
             #region update ball position
 
             // create code to move ball either left or right based on ballMoveRight and using BALL_SPEED
-            if (ballMoveRight == true) { ball.X += BALL_SPEED; }
-            else { ball.X -= BALL_SPEED; }
+            if (ballMoveRight == true)
+            {
+                ball.X += BALL_SPEED;
+
+                if (addSpeed % 2 == 0) { ball.X += addSpeed / 2; }
+            }
+            else
+            {
+                ball.X -= BALL_SPEED;
+
+                if (addSpeed % 2 == 0) { ball.X -= addSpeed / 2; }
+            }
 
             // create code move ball either down or up based on ballMoveDown and using BALL_SPEED
-            if (ballMoveDown == true) { ball.Y += BALL_SPEED; }
-            else { ball.Y -= BALL_SPEED; }
+            if (ballMoveDown == true)
+            {
+                ball.Y += BALL_SPEED;
+
+                if (addSpeed % 2 == 0) { ball.Y += addSpeed / 2; }
+            }
+            else
+            {
+                ball.Y -= BALL_SPEED;
+
+                if (addSpeed % 2 == 0) { ball.Y -= addSpeed / 2; }
+            }
+
+
 
             #endregion
 
@@ -225,11 +251,13 @@ namespace Pong
             {
                 collisionSound.Play();
                 ballMoveRight = true;
+                addSpeed++;
             }
             else if (p2.IntersectsWith(ball) && ballMoveRight == true)
             {
                 collisionSound.Play();
                 ballMoveRight = false;
+                addSpeed++;
             }
 
             // create if statment that checks p2 collides with ball and if it does
@@ -290,7 +318,7 @@ namespace Pong
             // --- use the startLabel to ask the user if they want to play again
             gameUpdateLoop.Stop();
             startLabel.Visible = true;
-            startLabel.Text = winner + " Has Won The Game!!";
+            startLabel.Text = winner + " wins!";
             Refresh();
             Thread.Sleep(2000);
             startLabel.Text = "Play Again?";
