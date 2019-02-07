@@ -52,7 +52,10 @@ namespace Pong
         //player and game scores
         int player1Score = 0;
         int player2Score = 0;
-        int gameWinScore = 2;  // number of points needed to win game
+        int gameWinScore = 5;  // number of points needed to win game
+
+        //random number generator
+        Random rng = new Random();
 
         #endregion
 
@@ -150,6 +153,13 @@ namespace Pong
             ball.X = this.Width / 2 - ball.Width / 2;
             // set starting Y position for ball to middle of screen, (use this.Height and ball.Height)
             ball.Y = this.Height / 2 - ball.Height / 2;
+
+            //create a random direction for the ball
+            if (rng.Next(1, 3) == 1) { ballMoveRight = true; }
+            else { ballMoveRight = false; }
+
+            if (rng.Next(1, 3) == 1) { ballMoveDown = true; }
+            else { ballMoveDown = false; }
         }
 
         /// <summary>
@@ -241,6 +251,7 @@ namespace Pong
                 // --- update player 2 score
                 scoreSound.Play();
                 player2Score += 1;
+                SetParameters();
 
                 // use if statement to check to see if player 2 has won the game. If true run 
                 // GameOver method. Else change direction of ball and call SetParameters method.
@@ -252,6 +263,7 @@ namespace Pong
             {
                 scoreSound.Play();
                 player1Score += 1;
+                SetParameters();
 
                 if (player1Score == gameWinScore) { GameOver("Player 1"); }
             }
