@@ -42,12 +42,12 @@ namespace Pong
         //ball directions, speed, and rectangle
         Boolean ballMoveRight = true;
         Boolean ballMoveDown = true;
-        const int BALL_SPEED = 4;
+        const int BALL_SPEED = 5;
         int addSpeed = 0;
         Rectangle ball;
 
         //paddle speeds and rectangles
-        const int PADDLE_SPEED = 4;
+        const int PADDLE_SPEED = 7;
         Rectangle p1, p2;
 
         //player and game scores
@@ -161,9 +161,6 @@ namespace Pong
 
             if (rng.Next(1, 3) == 1) { ballMoveDown = true; }
             else { ballMoveDown = false; }
-
-            //reset ball speed
-            addSpeed = 0;
         }
 
         /// <summary>
@@ -175,34 +172,12 @@ namespace Pong
             #region update ball position
 
             // create code to move ball either left or right based on ballMoveRight and using BALL_SPEED
-            if (ballMoveRight == true)
-            {
-                ball.X += BALL_SPEED;
-
-                if (addSpeed % 2 == 0) { ball.X += addSpeed / 2; }
-            }
-            else
-            {
-                ball.X -= BALL_SPEED;
-
-                if (addSpeed % 2 == 0) { ball.X -= addSpeed / 2; }
-            }
+            if (ballMoveRight == true) { ball.X += BALL_SPEED; }
+            else { ball.X -= BALL_SPEED; }
 
             // create code move ball either down or up based on ballMoveDown and using BALL_SPEED
-            if (ballMoveDown == true)
-            {
-                ball.Y += BALL_SPEED;
-
-                if (addSpeed % 2 == 0) { ball.Y += addSpeed / 2; }
-            }
-            else
-            {
-                ball.Y -= BALL_SPEED;
-
-                if (addSpeed % 2 == 0) { ball.Y -= addSpeed / 2; }
-            }
-
-
+            if (ballMoveDown == true) { ball.Y += BALL_SPEED; }
+            else { ball.Y -= BALL_SPEED; }
 
             #endregion
 
@@ -256,8 +231,7 @@ namespace Pong
             else if (p2.IntersectsWith(ball) && ballMoveRight == true)
             {
                 collisionSound.Play();
-                ballMoveRight = false;
-                addSpeed++;
+                ballMoveRight = false;n
             }
 
             // create if statment that checks p2 collides with ball and if it does
