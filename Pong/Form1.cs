@@ -231,7 +231,7 @@ namespace Pong
             else if (p2.IntersectsWith(ball) && ballMoveRight == true)
             {
                 collisionSound.Play();
-                ballMoveRight = false;n
+                ballMoveRight = false;
             }
 
             // create if statment that checks p2 collides with ball and if it does
